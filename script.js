@@ -104,6 +104,8 @@ function startTimer() {
   const timerInterval = setInterval(() => {
     timerElement.textContent = `Time left: ${timeLeft} seconds`
     timeLeft--
+
+    // When time runs out, end the quiz
     if (timeLeft < 0) {
       clearInterval(timerInterval)
       endQuiz()
@@ -113,12 +115,36 @@ function startTimer() {
 }
 
 /**
+ * Function to provide visual feedback and move to the next question
+ */
+function showFeedbackAndProceed(isCorrect, selectedElement) {
+  if (isCorrect) {
+    selectedElement.classList.add("is-success")
+  } else {
+    selectedElement.classList.add("is-danger")
+  }
+
+  // Wait 1.5 seconds before moving to the next question so user can see the feedback
+  setTimeout(() => {
+    currentQuestionIndex++
+    if (currentQuestionIndex < quizData.length) {
+      displayQuestion()
+    } else {
+      endQuiz()
+      console.log("Quiz over!")
+      console.log("Final score:", score)
+    }
+  }, 1500)
+}
+
+/**
  * Event handler for the submit button to validate and process the user's answer
  * @returns {void}
  */
 submitButton.addEventListener("click", () => {
   const currentQuestion = quizData[currentQuestionIndex]
 
+  // Handle multiple-choice and true/false questions
   if (
     currentQuestion.type === "aneka-pilihan" ||
     currentQuestion.type === "betul-salah"
@@ -129,14 +155,20 @@ submitButton.addEventListener("click", () => {
       return
     }
 
-    if (selectedOption.textContent === currentQuestion.correctAnswer) {
+    const isCorrect =
+      selectedOption.textContent === currentQuestion.correctAnswer
+    // Check if the selected answer is correct
+    if (isCorrect) {
       score++
+      showFeedbackAndProceed(isCorrect, selectedOption)
       console.log("Correct! Your score:", score)
     } else {
-      // Handle incorrect answer
+      showFeedbackAndProceed(isCorrect, selectedOption)
       console.log("Incorrect!")
     }
-  } else if (currentQuestion.type === "isi-tempat-kosong") {
+  }
+  // Handle fill-in-the-blank questions
+  else if (currentQuestion.type === "isi-tempat-kosong") {
     const inputElement = document.getElementById("isi-tempat-kosong")
     const userAnswer = inputElement.value.trim()
 
@@ -145,21 +177,27 @@ submitButton.addEventListener("click", () => {
       return
     }
 
-    if (
+    const isCorrect =
       userAnswer.toLowerCase() === currentQuestion.correctAnswer.toLowerCase()
-    ) {
+    if (isCorrect) {
       score++
+      showFeedbackAndProceed(isCorrect, inputElement)
+      console.log("Correct! Your score:", score)
+    } else {
+      showFeedbackAndProceed(isCorrect, inputElement)
+      console.log("Incorrect!")
     }
   }
 
-  currentQuestionIndex++
-  if (currentQuestionIndex < quizData.length) {
-    displayQuestion()
-  } else {
-    endQuiz()
-    console.log("Quiz over!")
-    console.log("Final score:", score)
-  }
+  // Replace with function - showFeedbackAndProceed(isCorrect, selectedOption)
+  // currentQuestionIndex++
+  // if (currentQuestionIndex < quizData.length) {
+  //   displayQuestion()
+  // } else {
+  //   endQuiz()
+  //   console.log("Quiz over!")
+  //   console.log("Final score:", score)
+  // }
 })
 
 /**
@@ -167,6 +205,7 @@ submitButton.addEventListener("click", () => {
  * @returns {void}
  */
 function endQuiz() {
+  timeLeft = 0
   questionElement.textContent = "Time's up!"
   optionsElement.innerHTML = ""
   submitButton.disabled = true
