@@ -211,6 +211,7 @@ function endQuiz() {
   submitButton.disabled = true
   resultElement.classList.remove("is-hidden")
   resultElement.textContent = `Final score: ${score}`
+  resultElement.classList.add("has-text-centered")
 }
 
 // Start the quiz by displaying the first question and starting the timer
