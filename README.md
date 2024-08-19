@@ -1,0 +1,2 @@
+# simple-quiz
+ vanilla js

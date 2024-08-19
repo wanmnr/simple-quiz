@@ -1,0 +1,26 @@
+<!-- /index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Quiz</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <section class="section">
+    <div class="container">
+      <div id="quiz-container" class="box">
+        <h1 class="title has-text-centered">My Quiz</h1>
+        <div id="timer" class="notification is-primary"></div>
+        <div id="question" class="content is-size-4 has-text-centered"></div>
+        <div id="options" class="buttons is-centered"></div>
+        <button id="submit" class="button is-info is-fullwidth">Submit</button>
+      </div>
+      <div id="result" class="notification is-warning is-hidden"></div>
+    </div>
+  </section>
+  <script src="script.js"></script>
+</body>
+</html>
