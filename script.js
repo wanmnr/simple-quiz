@@ -23,7 +23,7 @@ const quizData = [
 // Global variables to track the quiz state
 let currentQuestionIndex = 0
 let score = 0
-let timeLeft = 30
+let timeLeft = 90
 
 // DOM elements for the quiz interface
 const quizContainer = document.getElementById("quiz-container")
@@ -175,6 +175,5 @@ function endQuiz() {
 }
 
 // Start the quiz by displaying the first question and starting the timer
-displayQuestion()
 displayQuestion()
 startTimer()

@@ -3,15 +3,15 @@
 /* Custom styles for My Quiz */
 body {
     background-color: #f4f4f4;
-  }
+}
   
-  #quiz-container {
+#quiz-container {
     max-width: 600px;
     margin: 0 auto;
-  }
+}
   
-  #timer {
+#timer {
     text-align: center;
     font-size: 1.25rem;
-  }
+}
   
